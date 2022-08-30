@@ -13,12 +13,9 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getUserInfo(jwt) {
+  getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: {
-        ...this._headers,
-        authorization: `Bearer ${jwt}`,
-      }
+      headers: this._headers,
     }).then(this._checkResponse);
   }
 
@@ -40,12 +37,9 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  getInitialCards(jwt) {
+  getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: {
-        ...this._headers,
-        authorization: `Bearer ${jwt}`,
-      },
+      headers: this._headers,
     }).then(this._checkResponse);
   }
 
@@ -94,7 +88,6 @@ const api = new Api ({
   baseUrl: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    // authorization: `Bearer ${localStorage.getItem('jwt')}`,
   }
 })
 

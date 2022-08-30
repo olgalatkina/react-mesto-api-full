@@ -1,6 +1,6 @@
 export const BASE_URL = "http://localhost:3001";
 
-const _checkResponse= (res) => {
+const _checkResponse = (res) => {
   if (res.ok) {
     return res.json();
   }

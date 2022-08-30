@@ -34,8 +34,8 @@ const App = () => {
 
   useEffect(() => {
     if (loggedIn) {
-      const jwt = localStorage.getItem("jwt");
-      Promise.all([api.getUserInfo(jwt), api.getInitialCards(jwt)])
+      api.setToken();
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
         .then(([me, cards]) => {
           setCurrentUser(me);
           setCards(cards);
