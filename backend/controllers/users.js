@@ -5,6 +5,7 @@ const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
 const { CodeSuccess } = require('../constants');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 const SALT_ROUNDS = 10;
 
