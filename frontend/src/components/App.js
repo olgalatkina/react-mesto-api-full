@@ -34,7 +34,8 @@ const App = () => {
 
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([api.getUserInfo(), api.getInitialCards()])
+      const jwt = localStorage.getItem("jwt");
+      Promise.all([api.getUserInfo(jwt), api.getInitialCards(jwt)])
         .then(([me, cards]) => {
           setCurrentUser(me);
           setCards(cards);
@@ -51,7 +52,7 @@ const App = () => {
         .checkToken(jwt)
         .then((res) => {
           setLoggedIn(true);
-          setEmail(res.data.email);
+          setEmail(res.email);
           navigate("/");
         })
         .catch((err) => {
@@ -149,7 +150,6 @@ const App = () => {
       .catch((err) => {
         handleInfoTooltip();
         setIsSuccess(false);
-        console.log(err);
       });
   }
 
@@ -164,7 +164,6 @@ const App = () => {
       .catch((err) => {
         handleInfoTooltip();
         setIsSuccess(false);
-        console.log(err);
       })
       .finally(() => {});
   }

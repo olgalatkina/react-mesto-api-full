@@ -1,3 +1,5 @@
+import { BASE_URL } from './auth';
+
 class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -11,9 +13,12 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getUserInfo() {
+  getUserInfo(jwt) {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        authorization: `Bearer ${jwt}`,
+      }
     }).then(this._checkResponse);
   }
 
@@ -35,9 +40,12 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  getInitialCards() {
+  getInitialCards(jwt) {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        authorization: `Bearer ${jwt}`,
+      },
     }).then(this._checkResponse);
   }
 
@@ -76,13 +84,17 @@ class Api {
   changeLikeCardStatus(id, needAdd) {
     return needAdd ? this.addLike(id) : this.deleteLike(id);
   }
+
+  setToken() {
+    this._headers.authorization = `Bearer ${localStorage.getItem('jwt')}`;
+  }
 }
 
 const api = new Api ({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-41',
+  baseUrl: BASE_URL,
   headers: {
-    authorization: '525d6ef9-fa74-4a9f-b034-33c716bd855f',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    // authorization: `Bearer ${localStorage.getItem('jwt')}`,
   }
 })
 
