@@ -1,9 +1,17 @@
 .burger {
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--black);
   border: none;
+  transition: opacity .3s linear;
+  cursor: pointer;
+}
+
+.burger:hover {
+  opacity: 0.6;
 }
 
 @media screen and (min-width: 768px) {
