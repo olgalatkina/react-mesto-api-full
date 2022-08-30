@@ -12,9 +12,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000, LOCALHOST = 'mongodb://localhost:27017/mestodb' } = process.env;
 const app = express();
-
-app.use(cors());
-
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -22,9 +19,7 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
-app.use(limiter);
-app.use(helmet());
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -32,10 +27,19 @@ mongoose.connect(LOCALHOST, {
   useNewUrlParser: true,
 });
 
+app.use(helmet());
 app.use(requestLogger);
-app.use(router);
-app.use(errorLogger);
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
+app.use(limiter);
+app.use(router);
+
+app.use(errorLogger);
 router.use(errors());
 app.use(handleErrors);
 
