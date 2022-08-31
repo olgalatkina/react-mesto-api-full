@@ -19,15 +19,16 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 mongoose.connect(LOCALHOST, {
   useNewUrlParser: true,
 });
 
+app.use(cors());
 app.use(helmet());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(requestLogger);
 
 app.get('/crash-test', () => {
