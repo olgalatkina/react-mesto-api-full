@@ -29,6 +29,7 @@
 
 ***
 
-ссылка на сайт, размещенный на Яндекс.Облаке: https://mesto.olgalatkina.nomoredomains.sbs/
+ссылка на сайт, размещенный на Яндекс.Облаке: https://mesto.olgalatkina.nomoredomains.sbs/  
+IP-адрес сервера: 130.193.36.174
 
 ![screenshot](frontend/src/images/preview.jpg)
